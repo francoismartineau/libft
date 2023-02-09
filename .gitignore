@@ -1,3 +1,6 @@
 *.a
 *.o
 *.d
+
+.vscode
+.DS_Store
