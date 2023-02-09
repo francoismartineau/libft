@@ -6,15 +6,12 @@
 /*   By: francoma <francoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 16:11:50 by francoma          #+#    #+#             */
-/*   Updated: 2023/02/09 07:44:30 by francoma         ###   ########.fr       */
+/*   Updated: 2023/02/09 08:13:41 by francoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
-
-// if (size == 0 || count == 0 || count > MAX_SIZE / size)
-// 	return (NULL);
 
 void	*ft_calloc(size_t count, size_t size)
 {
@@ -22,6 +19,8 @@ void	*ft_calloc(size_t count, size_t size)
 	size_t	i;
 	size_t	len;
 
+	if (size == 0 || count == 0 || count > SIZE_MAX / size)
+		return (NULL);
 	res = malloc(size * count);
 	if (!res)
 		return (NULL);
