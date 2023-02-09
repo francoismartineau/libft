@@ -65,7 +65,8 @@ GNL_DIR = get_next_line/
 GNL_SRCS = get_next_line.c \
 	get_next_line_utils.c
 GNL_SRCS := $(addprefix $(GNL_DIR),$(GNL_SRCS))
-EXTRA_SRCS = math/math1.c
+MATH_SRCS = math/math1.c \
+	math/math1_st.c
 SRCS := $(SRCS) $(BONUS_SRCS) $(FT_PRINTF_SRCS) $(GNL_SRCS) $(EXTRA_SRCS)
 OBJS_DIR = objs/
 OBJS = $(addprefix $(OBJS_DIR),$(SRCS:.c=.o))
