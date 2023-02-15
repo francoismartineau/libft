@@ -34,6 +34,7 @@ SRCS = ft_atoi.c \
 	ft_strlcpy.c \
 	ft_strlen.c \
 	ft_strmapi.c \
+	ft_strcmp.c \
 	ft_strncmp.c \
 	ft_strnstr.c \
 	ft_strrchr.c \
@@ -66,6 +67,7 @@ GNL_SRCS = get_next_line.c \
 	get_next_line_utils.c
 GNL_SRCS := $(addprefix $(GNL_DIR),$(GNL_SRCS))
 MATH_SRCS = math/math1.c \
+	math/math2.c \
 	math/math1_st.c
 SRCS := $(SRCS) $(BONUS_SRCS) $(FT_PRINTF_SRCS) $(GNL_SRCS) $(MATH_SRCS)
 OBJS_DIR = objs/

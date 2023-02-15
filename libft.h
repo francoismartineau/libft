@@ -6,7 +6,7 @@
 /*   By: francoma <francoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 09:02:12 by francoma          #+#    #+#             */
-/*   Updated: 2023/02/09 08:06:36 by francoma         ###   ########.fr       */
+/*   Updated: 2023/02/15 15:58:28 by francoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
+int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
@@ -73,6 +74,9 @@ int		ft_abs(int n);
 int		ft_min(int a, int b);
 int		ft_max(int a, int b);
 int		ft_pow(int n, int pow);
+
+int		ft_array_min(int *array, int size);
+int		ft_array_min_index(int *array, int size);
 
 size_t	ft_abs_st(int n);
 size_t	ft_min_st(size_t a, size_t b);
