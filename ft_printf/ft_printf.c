@@ -6,12 +6,18 @@
 /*   By: francoma <francoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 08:51:20 by francoma          #+#    #+#             */
-/*   Updated: 2023/02/08 09:16:52 by francoma         ###   ########.fr       */
+/*   Updated: 2023/02/24 09:53:30 by francoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include "ftprintf.h"
+#include <unistd.h>
+
+static int	is_aconsumer(char const *format)
+{
+	return (*format == '%' && *(format + 1));
+}
 
 static int	consume_a(t_aconsumer *ac, va_list ap)
 {
@@ -34,32 +40,40 @@ static int	consume_a(t_aconsumer *ac, va_list ap)
 	return (count);
 }
 
+static int	reg_str_len(char const *str)
+{
+	int	len;
+
+	len = 0;
+	while (str[len] && !is_aconsumer(str + len))
+		len++;
+	return (len);
+}
+
 static int	_ft_printf(const char *format, va_list ap)
 {
 	t_aconsumer	ac;
-	size_t		i;
 	int			count;
-	int			_count;
+	int			temp_count;
 
 	count = 0;
-	_count = 0;
-	i = -1;
-	while (format[++i] && _count != -1)
+	temp_count = 0;
+	while (*format)
 	{
-		if (format[i] == '%' && format[i + 1])
+		if (is_aconsumer(format))
 		{
-			i += parse_aconsumer(format + i, &ac);
-			_count = consume_a(&ac, ap);
-			count += _count;
+			format += parse_aconsumer(format, &ac);
+			temp_count = consume_a(&ac, ap);
 		}
 		else
 		{
-			_count = ft_putchar(format[i]);
-			count++;
+			temp_count = write(1, format, reg_str_len(format));
+			format += temp_count;
 		}
+		if (temp_count == -1)
+			return (-1);
+		count += temp_count;
 	}
-	if (_count == -1)
-		return (-1);
 	return (count);
 }
 

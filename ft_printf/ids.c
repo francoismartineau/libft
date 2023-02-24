@@ -6,7 +6,7 @@
 /*   By: francoma <francoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:08:42 by francoma          #+#    #+#             */
-/*   Updated: 2023/02/08 09:16:49 by francoma         ###   ########.fr       */
+/*   Updated: 2023/02/24 07:36:44 by francoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,9 @@ int	is_signed_int(char type)
 int	is_hex(char type)
 {
 	return (type == 'x' || type == 'X' || type == 'p');
+}
+
+int	is_bin(char type)
+{
+	return (type == 'b' || type == 'B');
 }

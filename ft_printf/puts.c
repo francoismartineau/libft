@@ -6,11 +6,12 @@
 /*   By: francoma <francoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:44:39 by francoma          #+#    #+#             */
-/*   Updated: 2023/02/09 08:04:09 by francoma         ###   ########.fr       */
+/*   Updated: 2023/02/24 09:53:42 by francoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdlib.h>
 #include "ftprintf.h"
 
 int	ft_putchar(char c)
@@ -20,16 +21,7 @@ int	ft_putchar(char c)
 
 int	ft_putstr(char *s)
 {
-	int	i;
-	int	err;
-
-	i = 0;
-	err = 0;
-	while (s[i] && err != -1)
-		err = ft_putchar(s[i++]);
-	if (err == -1)
-		return (-1);
-	return (i);
+	return (write(1, s, ft_strlen(s)));
 }
 
 int	put_sign(t_aconsumer *ac)
@@ -50,10 +42,24 @@ int	put_sign(t_aconsumer *ac)
 
 int	put_hex_prefix(t_aconsumer *ac, size_t n)
 {
-	if ((!is_hex(ac->type) && ft_tolower(ac->type) != 'b')
-		|| (ac->type != 'p' && !n) || (ac->type != 'p' && !ac->flags[f_hash]))
-		return (0);
-	return (ft_putstr("0") + ft_putstr(&ac->type));
+	char	*prefix;
+	int		res;
+
+	res = 0;
+	if (((is_hex(ac->type) || is_bin(ac->type)) && ac->flags[f_hash])
+		|| (ac->type == 'p' && n != 0))
+	{
+		prefix = malloc(sizeof(*prefix) * 2);
+		if (!prefix)
+			return (-1);
+		prefix[0] = '0';
+		if (ac->type == 'p')
+			prefix[1] = 'x';
+		else
+			prefix[1] = ac->type;
+		res = write(1, prefix, 2);
+	}
+	return (res);
 }
 
 int	put_numbern(size_t n, int num_n, size_t base, char type)

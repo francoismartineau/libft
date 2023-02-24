@@ -6,11 +6,13 @@
 /*   By: francoma <francoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:39:01 by francoma          #+#    #+#             */
-/*   Updated: 2023/01/23 10:37:59 by francoma         ###   ########.fr       */
+/*   Updated: 2023/02/24 07:15:06 by francoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ftprintf.h"
+#include <unistd.h>
+#include <stdlib.h>
 
 int	nth_in_str(char c, char *str)
 {
@@ -38,31 +40,22 @@ int	ft_isupper(char c)
 
 int	putstrn(char *s, int n)
 {
-	int	i;
-	int	err;
-
-	err = 0;
-	i = 0;
-	while (i < n && err != -1)
-		err = ft_putchar(s[i++]);
-	if (err == -1)
-		return (-1);
-	return (i);
+	return (write(1, s, n));
 }
 
 int	putpadn(char pad, int n)
 {
-	int	i;
-	int	err;
+	char	*str;
+	int		i;
+	int		res;
 
-	err = 0;
-	i = 0;
-	while (i < n && err != -1)
-	{
-		err = ft_putchar(pad);
-		i++;
-	}
-	if (err == -1)
+	str = malloc(sizeof(str) * n);
+	if (!str)
 		return (-1);
-	return (i);
+	i = 0;
+	while (i < n)
+		str[i++] = pad;
+	res = write(1, str, n);
+	free(str);
+	return (res);
 }

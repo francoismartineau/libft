@@ -6,7 +6,7 @@
 /*   By: francoma <francoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:44:43 by francoma          #+#    #+#             */
-/*   Updated: 2023/02/08 09:17:50 by francoma         ###   ########.fr       */
+/*   Updated: 2023/02/24 09:10:14 by francoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ size_t	parse_aconsumer(const char *s, t_aconsumer *ac)
 	}
 	if (in_str(s[i], TYPES))
 		ac->type = s[i];
-	return (i);
+	return (i + 1);
 }
 
 char	get_padder(t_aconsumer *ac)
