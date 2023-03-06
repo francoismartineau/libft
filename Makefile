@@ -3,7 +3,8 @@ INCLUDE_DIR = .
 
 AR = ar -rc
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -MMD -O2 -I$(INCLUDE_DIR)
+# CFLAGS = -Wall -Wextra -Werror -MMD -O2 -I$(INCLUDE_DIR)
+CFLAGS = -Wall -Wextra -Werror -MMD -O0 -g -I$(INCLUDE_DIR)
 LDFLAGS = -L.
 LDLIBS = -lft
 
@@ -57,6 +58,11 @@ FT_PRINTF_SRCS = aconsumer.c \
 	display_numbers.c \
 	display_str.c \
 	ft_printf.c \
+	ft_sprintf/ft_sprintf.c \
+	ft_sprintf/sformat_char.c \
+	ft_sprintf/sformat_numbers.c \
+	ft_sprintf/sformat_str.c \
+	ft_sprintf/swrite.c \
 	ft_str.c \
 	ids.c \
 	numbers_util.c \

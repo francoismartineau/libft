@@ -6,11 +6,11 @@
 /*   By: francoma <francoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:27:26 by francoma          #+#    #+#             */
-/*   Updated: 2023/02/24 07:06:10 by francoma         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:23:00 by francoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ftprintf.h"
+#include "ft_printf.h"
 
 int	display_str(t_aconsumer *ac, char *s)
 {

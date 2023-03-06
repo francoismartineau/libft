@@ -6,11 +6,11 @@
 /*   By: francoma <francoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:08:42 by francoma          #+#    #+#             */
-/*   Updated: 2023/02/24 07:36:44 by francoma         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:23:12 by francoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ftprintf.h"
+#include "ft_printf.h"
 
 int	is_int(char type)
 {

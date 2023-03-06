@@ -1,7 +1,14 @@
+# dirs
+.vscode
+
+# C
 *.a
 *.o
 *.d
 *.out
+*.dSYM
+*.out
 
-.vscode
+# Misc
 .DS_Store
+test*

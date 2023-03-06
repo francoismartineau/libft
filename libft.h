@@ -6,7 +6,7 @@
 /*   By: francoma <francoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 09:02:12 by francoma          #+#    #+#             */
-/*   Updated: 2023/02/15 15:58:28 by francoma         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:30:33 by francoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 int		ft_printf(const char *format, ...);
+int		ft_sprintf(char *dst, const char *format, ...);
 char	*get_next_line(int fd);
 
 int		ft_abs(int n);

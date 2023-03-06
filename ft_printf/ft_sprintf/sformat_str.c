@@ -1,38 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_char.c                                     :+:      :+:    :+:   */
+/*   sformat_str.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: francoma <francoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 16:26:52 by francoma          #+#    #+#             */
-/*   Updated: 2023/03/06 16:23:00 by francoma         ###   ########.fr       */
+/*   Created: 2023/01/11 16:27:26 by francoma          #+#    #+#             */
+/*   Updated: 2023/03/06 17:21:48 by francoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_sprintf.h"
 
-int	display_char(t_aconsumer *ac, char c)
+int	sformat_str(char **dst, t_aconsumer *ac, char *s)
 {
 	char	padder;
 	int		f_w;
+	int		n;
 	int		res;
 
 	res = 0;
-	f_w = ft_max(ac->f_w, 1);
+	if (!s)
+		return (sformat_str(dst, ac, NULL_STR));
 	padder = get_padder(ac);
+	n = ft_strlen(s);
+	if (ac->precision != -1)
+		n = ft_min(n, ac->precision);
+	f_w = ft_max(ac->f_w, n);
 	if (ac->flags[f_minus])
-		if (-1 == ft_putchar(c))
-			return (-1);
-	if (-1 == putpadn(padder, f_w - 1))
-		return (-1);
+		res = swritestrn(dst, s, n);
+	if (res < 0)
+		return (res);
+	res = swritepadn(dst, padder, f_w - n);
+	if (res < 0)
+		return (res);
 	if (!ac->flags[f_minus])
-		if (-1 == ft_putchar(c))
-			return (-1);
+		res = swritestrn(dst, s, n);
+	if (res < 0)
+		return (res);
 	return (f_w);
-}
-
-int	display_percent(t_aconsumer *ac)
-{
-	return (display_char(ac, '%'));
 }

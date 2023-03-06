@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   puts.c                                             :+:      :+:    :+:   */
+/*   swrite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: francoma <francoma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:44:39 by francoma          #+#    #+#             */
-/*   Updated: 2023/03/06 16:58:46 by francoma         ###   ########.fr       */
+/*   Updated: 2023/03/06 18:03:39 by francoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
-#include "ft_printf.h"
+#include "ft_sprintf.h"
 
-int	ft_putchar(char c)
-{
-	return (write(1, &c, 1));
-}
-
-int	ft_putstr(char *s)
-{
-	return (write(1, s, ft_strlen(s)));
-}
-
-int	put_sign(t_aconsumer *ac)
+int	swrite_sign(char **dst, t_aconsumer *ac)
 {
 	int	res;
 
@@ -32,15 +22,15 @@ int	put_sign(t_aconsumer *ac)
 	if (!is_signed_int(ac->type))
 		return (res);
 	if (ac->is_negative_number)
-		res = ft_putchar('-');
+		res = swrite_char(dst, '-');
 	else if (ac->flags[f_plus])
-		res = ft_putchar('+');
+		res = swrite_char(dst, '+');
 	else if (ac->flags[f_space])
-		res = ft_putchar(' ');
+		res = swrite_char(dst, ' ');
 	return (res);
 }
 
-int	put_hex_prefix(t_aconsumer *ac, size_t n)
+int	swrite_hex_prefix(char **dst, t_aconsumer *ac, size_t n)
 {
 	char	prefix[2];
 	int		res;
@@ -54,12 +44,12 @@ int	put_hex_prefix(t_aconsumer *ac, size_t n)
 			prefix[1] = 'x';
 		else
 			prefix[1] = ac->type;
-		res = write(1, prefix, 2);
+		res = swritestrn(dst, prefix, 2);
 	}
 	return (res);
 }
 
-int	put_numbern(size_t n, int num_n, size_t base, char type)
+int	swrite_numbern(char **dst, t_num_properties *num)
 {
 	char	*digits;
 	char	dgt;
@@ -68,20 +58,48 @@ int	put_numbern(size_t n, int num_n, size_t base, char type)
 	int		err;
 
 	err = 0;
-	dgt_count = count_digits(n, base);
-	i = num_n;
+	dgt_count = count_digits(num->num, num->base);
+	i = num->num_n;
 	while (--i >= dgt_count && err != -1)
-		err = ft_putchar('0');
+		err = swrite_char(dst, '0');
 	digits = DIGITS;
 	while (i >= 0 && err != -1)
 	{
-		dgt = digits[n / ft_pow_st(base, i) % base];
-		if (ft_isupper(type))
+		dgt = digits[num->num / ft_pow_st(num->base, i) % num->base];
+		if (ft_isupper(num->type))
 			dgt = ft_toupper(dgt);
-		err = ft_putchar(dgt);
+		err = swrite_char(dst, dgt);
 		i--;
 	}
 	if (err == -1)
 		return (-1);
-	return (num_n);
+	return (num->num_n);
+}
+
+int	swritestrn(char **dst, char *s, int n)
+{
+	int	i;
+
+	i = 0;
+	while (i < n)
+	{
+		if (swrite_char(dst, s[i]) == ERROR)
+			return (ERROR);
+		i++;
+	}
+	return (n);
+}
+
+int	swritepadn(char **dst, char pad, int n)
+{
+	int	i;
+
+	i = 0;
+	while (i < n)
+	{
+		if (swrite_char(dst, pad) == ERROR)
+			return (ERROR);
+		i++;
+	}
+	return (n);
 }
